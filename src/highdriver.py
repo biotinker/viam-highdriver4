@@ -62,7 +62,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
         index = config.attributes.fields["index"].number_value
         freq = config.attributes.fields["frequency"].number_value
         freq = int((freq / 800) * 255)
-        # ~ i2c_bus_idx = 1
+        i2c_bus_idx = 1
         # ~ index = 1
         self.i2c_bus = SMBus(int(i2c_bus_idx))
         if index == 1:

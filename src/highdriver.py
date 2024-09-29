@@ -58,11 +58,13 @@ class HIGHDRIVER(Motor, Reconfigurable):
 
     # Handles attribute reconfiguration
     def reconfigure(self, config: ComponentConfig, dependencies: Mapping[ResourceName, ResourceBase]):
-        # ~ i2c_bus_idx = int(config.attributes.fields["i2c_bus"].number_value)
-        # ~ index = int(config.attributes.fields["index"].number_value)
-        i2c_bus_idx = 1
-        index = 1
-        self.i2c_bus = SMBus(i2c_bus_idx)
+        i2c_bus_idx = config.attributes.fields["i2c_bus"].number_value
+        index = config.attributes.fields["index"].number_value
+        freq = config.attributes.fields["frequency"].number_value
+        freq = int((freq / 800) * 255)
+        # ~ i2c_bus_idx = 1
+        # ~ index = 1
+        self.i2c_bus = SMBus(int(i2c_bus_idx))
         if index == 1:
             self.v_idx = i2c_p1voltage
         if index == 2:
@@ -79,8 +81,8 @@ class HIGHDRIVER(Motor, Reconfigurable):
         # TODO: make this configurable
         
         self.i2c_bus.write_byte_data(self.address, i2c_devideid, 0xb2)
-        self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0xff)  # 400Hz freq
-        # ~ self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0x40)  # 400Hz freq
+        # ~ self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0xaf)  # 400Hz freq
+        self.i2c_bus.write_byte_data(self.address, i2c_frequency, freq)  # 400Hz freq
         # ~ self.i2c_bus.write_byte_data(self.address, i2c_shape, 0x47)  # square wave
         self.i2c_bus.write_byte_data(self.address, i2c_shape, 0x00)  # square wave
         # ~ self.i2c_bus.write_byte_data(self.address, i2c_boost, 0x80)  # 1/32 spread spectrum 800kHz

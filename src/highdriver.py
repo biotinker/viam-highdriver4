@@ -79,7 +79,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
         # TODO: make this configurable
         
         self.i2c_bus.write_byte_data(self.address, i2c_devideid, 0xb2)
-        self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0xbf)  # 400Hz freq
+        self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0xff)  # 400Hz freq
         # ~ self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0x40)  # 400Hz freq
         # ~ self.i2c_bus.write_byte_data(self.address, i2c_shape, 0x47)  # square wave
         self.i2c_bus.write_byte_data(self.address, i2c_shape, 0x00)  # square wave
@@ -94,7 +94,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
     """ Implement the methods the Viam RDK defines for the sensor API (rdk:component:sensor) """
     async def set_power(self, power: float, extra: Optional[Dict[str, Any]] = None, timeout: Optional[float] = None, **kwargs):
         if power == 0:
-            return self.stop()
+            return await self.stop()
         if power < 0:
             power = power * -1
         if power > 1:

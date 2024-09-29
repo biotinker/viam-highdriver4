@@ -68,7 +68,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
             self.v_idx = i2c_p3voltage
         if index == 4:
             self.v_idx = i2c_p4voltage
-        
+        self.power = False
         
         self.address = default_address
         
@@ -93,8 +93,35 @@ class HIGHDRIVER(Motor, Reconfigurable):
             power = 1
         power = power * 16
         self.i2c_bus.write_byte_data(self.address, self.v_idx, power)
+        self.power = True
+        return
+
+    async def go_to(self,rpm: float,position_revolutions: float,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs):
+        return
+        
+    async def set_rpm(self,rpm: float,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs):
         return
     
+    async def reset_zero_position(self,offset: float,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs):
+        return
+
+    async def get_position(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs) -> float:
+        return 0
+
+    async def get_properties(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs) -> Properties:
+        return
+
+    async def stop(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs):
+        self.power = False
+        self.i2c_bus.write_byte_data(self.address, self.v_idx, 0x00)
+        return
+
+    async def is_powered(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs) -> Tuple[bool, float]:
+        return self.power
+    async def is_moving(self) -> bool:
+        return self.power
+
     async def close():
+        self.power = False
         self.i2c_bus.write_byte_data(self.address, i2c_powermode, 0x00)  # turn off
         

@@ -79,9 +79,12 @@ class HIGHDRIVER(Motor, Reconfigurable):
         # TODO: make this configurable
         
         self.i2c_bus.write_byte_data(self.address, i2c_devideid, 0xb2)
-        self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0xbf)  # 400Hz freq
-        self.i2c_bus.write_byte_data(self.address, i2c_shape, 0x47)  # square wave
-        self.i2c_bus.write_byte_data(self.address, i2c_boost, 0x80)  # 1/32 spread spectrum 800kHz
+        # ~ self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0xbf)  # 400Hz freq
+        self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0x40)  # 400Hz freq
+        # ~ self.i2c_bus.write_byte_data(self.address, i2c_shape, 0x47)  # square wave
+        self.i2c_bus.write_byte_data(self.address, i2c_shape, 0x00)  # square wave
+        # ~ self.i2c_bus.write_byte_data(self.address, i2c_boost, 0x80)  # 1/32 spread spectrum 800kHz
+        self.i2c_bus.write_byte_data(self.address, i2c_boost, 0x00)  # 1/32 spread spectrum 800kHz
         self.i2c_bus.write_byte_data(self.address, i2c_audio, 0x00)  # disabled so set to default because it can't be used
         self.i2c_bus.write_byte_data(self.address, self.v_idx, 0x00)  # Turned off
         
@@ -99,6 +102,9 @@ class HIGHDRIVER(Motor, Reconfigurable):
         power = int(power * 31)
         self.i2c_bus.write_byte_data(self.address, i2c_powermode, 0x01) # power on
         self.i2c_bus.write_byte_data(self.address, self.v_idx, power)
+        
+        # updated voltage
+        self.i2c_bus.write_byte_data(self.address, self.i2c_updatedvoltage, 0x01)
         self.power = True
         return
 

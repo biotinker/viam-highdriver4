@@ -85,7 +85,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
         self.i2c_bus.write_byte_data(self.address, i2c_audio, 0x00)  # disabled so set to default because it can't be used
         self.i2c_bus.write_byte_data(self.address, self.v_idx, 0x00)  # Turned off
         
-        self.i2c_bus.write_byte_data(self.address, i2c_powermode, 0x01) # power on
+        # ~ self.i2c_bus.write_byte_data(self.address, i2c_powermode, 0x01) # power on
         return
 
     """ Implement the methods the Viam RDK defines for the sensor API (rdk:component:sensor) """
@@ -97,6 +97,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
         if power > 1:
             power = 1
         power = int(power * 16)
+        self.i2c_bus.write_byte_data(self.address, i2c_powermode, 0x01) # power on
         self.i2c_bus.write_byte_data(self.address, self.v_idx, power)
         self.power = True
         return

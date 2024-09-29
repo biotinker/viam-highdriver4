@@ -130,7 +130,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
     async def is_moving(self) -> bool:
         return self.power
 
-    async def close():
+    async def close(self):
         self.power = False
         self.i2c_bus.write_byte_data(self.address, i2c_powermode, 0x00)  # turn off
         

@@ -15,6 +15,7 @@ from viam.utils import struct_to_dict, dict_to_struct, ValueTypes
 
 import statistics
 import asyncio
+from smbus import SMBus
 
 LOGGER = getLogger(__name__)
 
@@ -57,9 +58,9 @@ class HIGHDRIVER(Motor, Reconfigurable):
 
     # Handles attribute reconfiguration
     def reconfigure(self, config: ComponentConfig, dependencies: Mapping[ResourceName, ResourceBase]):
-        i2c_bus = config.attributes.fields["i2c_bus"].number_value
+        i2c_bus_idx = config.attributes.fields["i2c_bus"].number_value
         index = config.attributes.fields["index"].number_value
-        self.i2c_bus = i2c_bus
+        self.i2c_bus = SMBus(i2c_bus)
         if index == 1:
             self.v_idx = i2c_p1voltage
         if index == 2:

@@ -61,7 +61,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
         # ~ i2c_bus_idx = config.attributes.fields["i2c_bus"].number_value
         index = config.attributes.fields["index"].number_value
         freq = config.attributes.fields["frequency"].number_value
-        freq = int((freq / 800) * 255)
+        freq = 255 - int((freq / 800) * 255)
         i2c_bus_idx = 1
         # ~ index = 1
         self.i2c_bus = SMBus(i2c_bus_idx)
@@ -101,7 +101,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
             power = power * -1
         if power > 1:
             power = 1
-        power = int(power * 31)
+        power = 255-int(power * 31)
         self.i2c_bus.write_byte_data(self.address, i2c_powermode, 0x01) # power on
         self.i2c_bus.write_byte_data(self.address, self.v_idx, power)
         

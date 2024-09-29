@@ -108,7 +108,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
     async def get_position(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs) -> float:
         return 0
 
-    async def get_properties(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs) -> Properties:
+    async def get_properties(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs) -> Motor.Properties:
         return
 
     async def stop(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs):
@@ -116,8 +116,8 @@ class HIGHDRIVER(Motor, Reconfigurable):
         self.i2c_bus.write_byte_data(self.address, self.v_idx, 0x00)
         return
 
-    async def is_powered(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs) -> Tuple[bool, float]:
-        return self.power
+    async def is_powered(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs) -> tuple[bool, float]:
+        return self.power, 0
     async def is_moving(self) -> bool:
         return self.power
 

@@ -1,0 +1,13 @@
+{
+  "module_id": "biotinker:mp-highdriver-4",
+  "visibility": "public",
+  "url": "https://github.com/biotinker/viam-mp-highdriver-4",
+  "description": "A module to run the mp highdriver 4",
+  "models": [
+    {
+      "api": "rdk:component:motor",
+      "model": "biotinker:motor:mp-highdriver-4"
+    }
+  ],
+  "entrypoint": "run.sh"
+}

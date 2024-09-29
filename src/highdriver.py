@@ -96,7 +96,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
             power = power * -1
         if power > 1:
             power = 1
-        power = int(power * 16)
+        power = int(power * 31)
         self.i2c_bus.write_byte_data(self.address, i2c_powermode, 0x01) # power on
         self.i2c_bus.write_byte_data(self.address, self.v_idx, power)
         self.power = True

@@ -60,7 +60,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
     def reconfigure(self, config: ComponentConfig, dependencies: Mapping[ResourceName, ResourceBase]):
         i2c_bus_idx = config.attributes.fields["i2c_bus"].number_value
         index = config.attributes.fields["index"].number_value
-        self.i2c_bus = SMBus(i2c_bus)
+        self.i2c_bus = SMBus(i2c_bus_idx)
         if index == 1:
             self.v_idx = i2c_p1voltage
         if index == 2:

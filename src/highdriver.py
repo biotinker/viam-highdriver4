@@ -50,7 +50,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
         i2c_bus = config.attributes.fields["i2c_bus"].string_value
         if i2c_bus == "":
             raise Exception("An i2c_bus must be defined")
-        index = config.attributes.fields["index"].number_value
+        index = int(config.attributes.fields["index"].number_value)
         if index != 1 and index != 2 and index != 3 and index != 4:
             raise Exception("index must be 1, 2, 3, or 4")
         
@@ -58,8 +58,8 @@ class HIGHDRIVER(Motor, Reconfigurable):
 
     # Handles attribute reconfiguration
     def reconfigure(self, config: ComponentConfig, dependencies: Mapping[ResourceName, ResourceBase]):
-        i2c_bus_idx = config.attributes.fields["i2c_bus"].number_value
-        index = config.attributes.fields["index"].number_value
+        i2c_bus_idx = int(config.attributes.fields["i2c_bus"].number_value)
+        index = int(config.attributes.fields["index"].number_value)
         self.i2c_bus = SMBus(i2c_bus_idx)
         if index == 1:
             self.v_idx = i2c_p1voltage

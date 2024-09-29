@@ -90,6 +90,8 @@ class HIGHDRIVER(Motor, Reconfigurable):
 
     """ Implement the methods the Viam RDK defines for the sensor API (rdk:component:sensor) """
     async def set_power(self, power: float, extra: Optional[Dict[str, Any]] = None, timeout: Optional[float] = None, **kwargs):
+        if power == 0:
+            return self.stop()
         if power < 0:
             power = power * -1
         if power > 1:
@@ -119,6 +121,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
 
     async def stop(self,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs):
         self.power = False
+        self.i2c_bus.write_byte_data(self.address, i2c_powermode, 0x00) # power off
         self.i2c_bus.write_byte_data(self.address, self.v_idx, 0x00)
         return
 

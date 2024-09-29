@@ -58,7 +58,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
 
     # Handles attribute reconfiguration
     def reconfigure(self, config: ComponentConfig, dependencies: Mapping[ResourceName, ResourceBase]):
-        i2c_bus_idx = config.attributes.fields["i2c_bus"].number_value
+        # ~ i2c_bus_idx = config.attributes.fields["i2c_bus"].number_value
         index = config.attributes.fields["index"].number_value
         freq = config.attributes.fields["frequency"].number_value
         freq = int((freq / 800) * 255)

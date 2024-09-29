@@ -64,7 +64,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
         freq = int((freq / 800) * 255)
         i2c_bus_idx = 1
         # ~ index = 1
-        self.i2c_bus = SMBus(int(i2c_bus_idx))
+        self.i2c_bus = SMBus(i2c_bus_idx)
         if index == 1:
             self.v_idx = i2c_p1voltage
         if index == 2:

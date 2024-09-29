@@ -96,6 +96,9 @@ class HIGHDRIVER(Motor, Reconfigurable):
         self.power = True
         return
 
+    async def go_for(self,rpm: float,revolutions: float,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs):
+        return
+
     async def go_to(self,rpm: float,position_revolutions: float,extra: Optional[Dict[str, Any]] = None,timeout: Optional[float] = None,**kwargs):
         return
         

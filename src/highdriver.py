@@ -79,8 +79,8 @@ class HIGHDRIVER(Motor, Reconfigurable):
         # TODO: make this configurable
         
         self.i2c_bus.write_byte_data(self.address, i2c_devideid, 0xb2)
-        # ~ self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0xbf)  # 400Hz freq
-        self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0x40)  # 400Hz freq
+        self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0xbf)  # 400Hz freq
+        # ~ self.i2c_bus.write_byte_data(self.address, i2c_frequency, 0x40)  # 400Hz freq
         # ~ self.i2c_bus.write_byte_data(self.address, i2c_shape, 0x47)  # square wave
         self.i2c_bus.write_byte_data(self.address, i2c_shape, 0x00)  # square wave
         # ~ self.i2c_bus.write_byte_data(self.address, i2c_boost, 0x80)  # 1/32 spread spectrum 800kHz

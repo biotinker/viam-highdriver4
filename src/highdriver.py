@@ -104,7 +104,7 @@ class HIGHDRIVER(Motor, Reconfigurable):
         self.i2c_bus.write_byte_data(self.address, self.v_idx, power)
         
         # updated voltage
-        self.i2c_bus.write_byte_data(self.address, self.i2c_updatedvoltage, 0x01)
+        self.i2c_bus.write_byte_data(self.address, i2c_updatedvoltage, 0x01)
         self.power = True
         return
 
